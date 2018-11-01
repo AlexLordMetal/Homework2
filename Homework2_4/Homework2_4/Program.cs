@@ -11,7 +11,7 @@ namespace Homework2_4
             int min = Int32.Parse(Console.ReadLine());
             Console.Write("MAX: ");
             int max = Int32.Parse(Console.ReadLine());
-            int[] numArray = new int[max - min];
+            int[] numArray = new int[max - min + 1];
 
             for (int i = 0; i < numArray.Length; i++)
             {
