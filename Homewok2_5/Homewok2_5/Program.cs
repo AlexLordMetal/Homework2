@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 
 namespace Homework2_5
 {
@@ -36,178 +37,242 @@ namespace Homework2_5
                 }
             }
 
-            Console.WriteLine("Массив с рандомом:");
+            Console.WriteLine("\nМассив с рандомом:");
             foreach (int i in numArray)
             {
                 Console.Write($"{i} ");
             }
-            Console.WriteLine();
-            Console.WriteLine();
 
             int[] sortArray = (int[])numArray.Clone();
 
-            //Console.WriteLine("Каким алгоритмом вы хотите отстртировать массив:");
-            //Console.WriteLine("1 - Шейкерная сортировка;");
-            //Console.WriteLine("2 - Сортировка вставками;");
-            //Console.WriteLine("3 - Сортировка Шелла;");
-            //Console.WriteLine("4 - Быстрая сортировка.");
-            //string answer = Console.ReadLine();
-            //switch (answer)
-            //{
-            //    case "1":
-            //        sw.Start();
-            //        ArraySort1(sortArray);
-            //        sw.Stop();
-            //        Console.WriteLine($"Шейкерная сортировка заняла {sw.ElapsedMilliseconds} миллисекунды");
-            //        break;
-            //    case "2":
-            //        sw.Start();
-            //        ArraySort2(sortArray);
-            //        sw.Stop();
-            //        Console.WriteLine($"Cортировка вставками заняла {sw.ElapsedMilliseconds} миллисекунды");
-            //        break;
-            //    case "3":
-            //        sw.Start();
-            //        ArraySort3(sortArray);
-            //        sw.Stop();
-            //        Console.WriteLine($"Сортировка Шелла заняла {sw.ElapsedMilliseconds} миллисекунды");
-            //        break;
-            //    //    case "4":
-            //    //        sw.Start();
-            //    //        ArraySort5(sortArray);
-            //    //        sw.Stop();
-            //    //        Console.WriteLine($"Быстрая сортировка заняла {sw.ElapsedMilliseconds} миллисекунды");
-            //    //        break;
-            //    default:
-            //        Console.WriteLine("Вы нажали что-то не то");
-            //        break;
-            //}
-
-            ArraySort4(sortArray);
-
-            Console.WriteLine("Отсортированный массив:");
-            foreach (int i in sortArray)
-            {
-                Console.Write($"{i} ");
-            }
+            Console.WriteLine("\n\nКаким алгоритмом вы хотите отсортировать массив:");
+            Console.WriteLine("1 - Шейкерная сортировка;");
+            Console.WriteLine("2 - Сортировка вставками;");
+            Console.WriteLine("3 - Сортировка Шелла;");
+            Console.WriteLine("4 - Быстрая сортировка.");
+            string answer = Console.ReadLine();
             Console.WriteLine();
+            switch (answer)
+            {
+                case "1":
+                    sw.Start();
+                    ShakerSort(sortArray);
+                    sw.Stop();
+                    Console.WriteLine($"Шейкерная сортировка заняла {sw.ElapsedMilliseconds} миллисекунды");
+                    break;
+                case "2":
+                    sw.Start();
+                    InsertionSort(sortArray);
+                    sw.Stop();
+                    Console.WriteLine($"Cортировка вставками заняла {sw.ElapsedMilliseconds} миллисекунды");
+                    break;
+                case "3":
+                    sw.Start();
+                    ShellSort(sortArray);
+                    sw.Stop();
+                    Console.WriteLine($"Сортировка Шелла заняла {sw.ElapsedMilliseconds} миллисекунды");
+                    break;
+                case "4":
+                    sw.Start();
+                    QuickSort(sortArray, 0, sortArray.Length - 1);
+                    sw.Stop();
+                    Console.WriteLine($"Быстрая сортировка заняла {sw.ElapsedMilliseconds} миллисекунды");
+                    break;
+                default:
+                    Console.WriteLine("Вы нажали что-то не то");
+                    break;
+            }
 
-            Console.ReadKey();
+            Console.WriteLine("Вывести отсортированный массив в консоль (1) или в файл (2)?");
+            answer = Console.ReadLine();
+            if (answer == "1")
+            {
+                Console.WriteLine("\nОтсортированный массив:");
+                foreach (int i in sortArray)
+                {
+                    Console.Write($"{i} ");
+                }
+                Console.ReadKey();
+            }
+            else if (answer == "2")
+            {
+                StreamWriter arrayToFile = new StreamWriter("SortedArray.txt");
+                foreach (int i in sortArray)
+                {
+                    arrayToFile.Write($"{i} ");
+                }
+                arrayToFile.Close();
+                Process.Start("SortedArray.txt");
+
+            }
         }
 
-        static int[] ArraySort1(int[] Array1)  //Shaker Sort
+        /// <summary>
+        /// Method sorts array of Int32 with Shaker sort algoritm
+        /// </summary>
+        /// <param name="intArray"></param>
+        /// <returns></returns>
+        static int[] ShakerSort(int[] intArray)
         {
             int startNum = 0;
-            int endNum = Array1.Length - 1;
+            int endNum = intArray.Length - 1;
             while (startNum < endNum)
             {
                 for (int i = startNum; i <= endNum - 1; i++)
                 {
-                    if (Array1[i] > Array1[i + 1])
+                    if (intArray[i] > intArray[i + 1])
                     {
-                        int tempNum = Array1[i];
-                        Array1[i] = Array1[i + 1];
-                        Array1[i + 1] = tempNum;
+                        int tempNum = intArray[i];
+                        intArray[i] = intArray[i + 1];
+                        intArray[i + 1] = tempNum;
                     }
                 }
                 endNum--;
 
                 for (int i = endNum; i >= startNum + 1; i--)
                 {
-                    if (Array1[i] < Array1[i - 1])
+                    if (intArray[i] < intArray[i - 1])
                     {
-                        int tempNum = Array1[i];
-                        Array1[i] = Array1[i - 1];
-                        Array1[i - 1] = tempNum;
+                        int tempNum = intArray[i];
+                        intArray[i] = intArray[i - 1];
+                        intArray[i - 1] = tempNum;
                     }
                 }
                 startNum++;
             }
-            return Array1;
+            return intArray;
         }
 
-        static int[] ArraySort2(int[] Array2)  //Insertion Sort
+        /// <summary>
+        /// Method sorts array of Int32 with Insertion sort algoritm
+        /// </summary>
+        /// <param name="intArray"></param>
+        /// <returns></returns>
+        static int[] InsertionSort(int[] intArray)
         {
-            for (int i = 1; i <= Array2.Length - 1; i++)
+            for (int i = 1; i <= intArray.Length - 1; i++)
             {
-                if (Array2[i] < Array2[i - 1])
+                if (intArray[i] < intArray[i - 1])
                 {
-                    int tempNum = Array2[i];
+                    int tempNum = intArray[i];
                     int j = i;
-                    while ((j > 0) && (Array2[j - 1] > tempNum))
+                    while ((j > 0) && (intArray[j - 1] > tempNum))
                     {
-                        Array2[j] = Array2[j - 1];
+                        intArray[j] = intArray[j - 1];
                         j--;
                     }
-                    Array2[j] = tempNum;
+                    intArray[j] = tempNum;
                 }
             }
-            return Array2;
+            return intArray;
         }
 
-        static int[] ArraySort3(int[] Array3)  //Insertion Sort             //АААА!!!! ОНО работает, сука!!
+        /// <summary>
+        /// Method sorts array of Int32 with Shellsort algoritm
+        /// </summary>
+        /// <param name="intArray"></param>
+        /// <returns></returns>
+        static int[] ShellSort(int[] intArray)                       //АААА!!!! ОНО работает, сука!!
         {
             int[] deltaArray = { 1, 4, 10, 23, 57, 132, 301, 701, 1750 };
             for (int count = deltaArray.Length - 1; count >= 0; count--)
             {
-                if (((double)Array3.Length / (double)deltaArray[count]) > 1)
+                if (((double)intArray.Length / (double)deltaArray[count]) > 1)
                 {
                     int D = deltaArray[count];
                     for (int k = 0; k < D; k++)
                     {
-                        for (int i = 0 + k + D; i <= Array3.Length - 1; i = i + D)
+                        for (int i = 0 + k + D; i <= intArray.Length - 1; i = i + D)
                         {
-                            if (Array3[i] < Array3[i - D])
+                            if (intArray[i] < intArray[i - D])
                             {
-                                int tempNum = Array3[i];
+                                int tempNum = intArray[i];
                                 int j = i;
-                                while ((j >= D) && (Array3[j - D] > tempNum))
+                                while ((j >= D) && (intArray[j - D] > tempNum))
                                 {
-                                    Array3[j] = Array3[j - D];
+                                    intArray[j] = intArray[j - D];
                                     j = j - D;
                                 }
-                                Array3[j] = tempNum;
+                                intArray[j] = tempNum;
                             }
                         }
                     }
                 }
             }
-            return Array3;
+            return intArray;
         }
 
-        static int[] ArraySort4(int[] Array4)  //Quicksort main
+        /// <summary>
+        /// Method sorts array of Int32 with Quicksort algoritm
+        /// </summary>
+        /// <param name="intArray"></param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
+        static int[] QuickSort(int[] intArray, int start, int end)
         {
-            int midNum = Array4[Array4.Length / 2];
-            int i = 0;
-            int j = Array4.Length - 1;
-            while (i < j)
+            if (end - start > 1)
             {
-                while (Array4[i] < midNum)
+                int medNum = 0;             
+                int med = ((end - start) / 2) + start;
+                if (((intArray[start] < intArray[med]) && (intArray[start] > intArray[end])) || ((intArray[start] > intArray[med]) && (intArray[start] < intArray[end])))   //Find the median number
                 {
-                    i++;
+                    medNum = intArray[start];
                 }
-                while (Array4[j] >= midNum)
+                else if (((intArray[med] < intArray[start]) && (intArray[med] > intArray[end])) || ((intArray[med] > intArray[start]) && (intArray[med] < intArray[end])))
                 {
-                    j--;
+                    medNum = intArray[med];
+                }
+                else
+                {
+                    medNum = intArray[end];
                 }
 
-                if (i < j)
+                int i = start;
+                int j = end;
+                while (i < j)
                 {
-                    int tempNum = Array4[i];
-                    Array4[i] = Array4[j];
-                    Array4[j] = tempNum;
-                    i++;
-                    j--;
+                    while ((i <= end) && (intArray[i] < medNum))
+                    {
+                        i++;
+                    }
+                    while ((j >= start) && (intArray[j] > medNum))
+                    {
+                        j--;
+                    }
+
+                    if (i < j)
+                    {
+                        int tempNum = intArray[i];
+                        intArray[i] = intArray[j];
+                        intArray[j] = tempNum;
+                        i++;
+                        j--;
+                    }
+                }
+
+                if (j > start)
+                {
+                    QuickSort(intArray, start, j);
+                }
+
+                if (i < end)
+                {
+                    QuickSort(intArray, i, end);
                 }
             }
-            return Array4;
+
+            else if (end - start == 1)      //Two elements simple sort
+            {
+                if (intArray[end] < intArray[start])
+                {
+                    int tempNum = intArray[start];
+                    intArray[start] = intArray[end];
+                    intArray[end] = tempNum;
+                }
+            }
+            return intArray;
         }
-
-        static int[] quickSort(int[] Array4, int i, int j)
-            {
-
-            return ()
-            }
 
     }
 }
