@@ -108,7 +108,7 @@ namespace Homework2_5
         }
 
         /// <summary>
-        /// Method sorts array of Int32 with Shaker sort algoritm
+        /// Method sorts array of Int32 with Shaker sort algorithm
         /// </summary>
         /// <param name="intArray"></param>
         /// <returns></returns>
@@ -144,7 +144,7 @@ namespace Homework2_5
         }
 
         /// <summary>
-        /// Method sorts array of Int32 with Insertion sort algoritm
+        /// Method sorts array of Int32 with Insertion sort algorithm
         /// </summary>
         /// <param name="intArray"></param>
         /// <returns></returns>
@@ -168,7 +168,7 @@ namespace Homework2_5
         }
 
         /// <summary>
-        /// Method sorts array of Int32 with Shellsort algoritm
+        /// Method sorts array of Int32 with Shellsort algorithm
         /// </summary>
         /// <param name="intArray"></param>
         /// <returns></returns>
@@ -203,7 +203,7 @@ namespace Homework2_5
         }
 
         /// <summary>
-        /// Method sorts array of Int32 with Quicksort algoritm
+        /// Method sorts array of Int32 with Quicksort algorithm
         /// </summary>
         /// <param name="intArray"></param>
         /// <param name="start"></param>
@@ -213,7 +213,7 @@ namespace Homework2_5
         {
             if (end - start > 1)
             {
-                int medNum = 0;             
+                int medNum = 0;
                 int med = ((end - start) / 2) + start;
                 if (((intArray[start] < intArray[med]) && (intArray[start] > intArray[end])) || ((intArray[start] > intArray[med]) && (intArray[start] < intArray[end])))   //Find the median number
                 {

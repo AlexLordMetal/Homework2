@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D4032A76-AD17-45DF-9FB5-121A162B84F4}</ProjectGuid>
+    <ProjectGuid>{D34F05B7-8E03-4DC6-BF62-3954FDEB8E45}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Homewok2_5</RootNamespace>
-    <AssemblyName>Homewok2_5</AssemblyName>
+    <RootNamespace>Homework2_5</RootNamespace>
+    <AssemblyName>Homework2_5</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
