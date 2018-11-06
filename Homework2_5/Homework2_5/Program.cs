@@ -43,8 +43,6 @@ namespace Homework2_5
                 Console.Write($"{i} ");
             }
 
-            int[] sortArray = (int[])numArray.Clone();
-
             Console.WriteLine("\n\nКаким алгоритмом вы хотите отсортировать массив:");
             Console.WriteLine("1 - Шейкерная сортировка;");
             Console.WriteLine("2 - Сортировка вставками;");
@@ -56,25 +54,25 @@ namespace Homework2_5
             {
                 case "1":
                     sw.Start();
-                    ShakerSort(sortArray);
+                    ShakerSort(numArray);
                     sw.Stop();
                     Console.WriteLine($"Шейкерная сортировка заняла {sw.ElapsedMilliseconds} миллисекунды");
                     break;
                 case "2":
                     sw.Start();
-                    InsertionSort(sortArray);
+                    InsertionSort(numArray);
                     sw.Stop();
                     Console.WriteLine($"Cортировка вставками заняла {sw.ElapsedMilliseconds} миллисекунды");
                     break;
                 case "3":
                     sw.Start();
-                    ShellSort(sortArray);
+                    ShellSort(numArray);
                     sw.Stop();
                     Console.WriteLine($"Сортировка Шелла заняла {sw.ElapsedMilliseconds} миллисекунды");
                     break;
                 case "4":
                     sw.Start();
-                    QuickSort(sortArray, 0, sortArray.Length - 1);
+                    QuickSort(numArray, 0, numArray.Length - 1);
                     sw.Stop();
                     Console.WriteLine($"Быстрая сортировка заняла {sw.ElapsedMilliseconds} миллисекунды");
                     break;
@@ -88,7 +86,7 @@ namespace Homework2_5
             if (answer == "1")
             {
                 Console.WriteLine("\nОтсортированный массив:");
-                foreach (int i in sortArray)
+                foreach (int i in numArray)
                 {
                     Console.Write($"{i} ");
                 }
@@ -97,7 +95,7 @@ namespace Homework2_5
             else if (answer == "2")
             {
                 StreamWriter arrayToFile = new StreamWriter("SortedArray.txt");
-                foreach (int i in sortArray)
+                foreach (int i in numArray)
                 {
                     arrayToFile.Write($"{i} ");
                 }
